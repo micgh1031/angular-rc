@@ -1,0 +1,102 @@
+<div class="page-layout simple p-24">
+  <!--Spinner-->
+  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <!--Event Link-->
+  <div class="mb-12" fxLayout="row" fxLayout.xs="column"
+       fxLayoutAlign="space-between center">
+    <span class="mat-headline">Withdraw List</span>
+  </div>
+
+  <!--Search Pane-->
+  <div class="mat-card mb-12 p-12" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field fxFlex="100" class="ml-12" fxLayoutAlign="center">
+      <mat-icon matSuffix class="secondary-text">account_balance_wallet</mat-icon>
+      <input matInput placeholder="Search Withdraw Name" #search_name>
+    </mat-form-field>
+  </div>
+
+  <!--Date Table Panel-->
+  <div class="mat-card">
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="amount" matSortDirection="asc" matSortDisableClear>
+      <!-- Merchant Column -->
+      <ng-container matColumnDef="merchant">
+        <th mat-header-cell *matHeaderCellDef>Merchant</th>
+        <td mat-cell *matCellDef="let element">{{ element.merchant ? element.merchant.name : '---' }}</td>
+      </ng-container>
+
+      <!-- User Column -->
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef>User</th>
+        <td mat-cell *matCellDef="let element">{{ element.user ? element.user.name : '---' }}</td>
+      </ng-container>
+
+      <!-- Bank Column -->
+      <ng-container matColumnDef="bank">
+        <th mat-header-cell *matHeaderCellDef>Bank</th>
+        <td mat-cell *matCellDef="let element">{{ element.bank ? element.bank.name : '---' }}</td>
+      </ng-container>
+
+      <!-- Currency Column -->
+      <ng-container matColumnDef="currency">
+        <th mat-header-cell *matHeaderCellDef>Currency</th>
+        <td mat-cell *matCellDef="let element">{{ element.currency ? element.currency.name : '---' }}</td>
+      </ng-container>
+
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td mat-cell *matCellDef="let element">{{ element.amount }}</td>
+      </ng-container>
+
+      <!-- Fee Column -->
+      <ng-container matColumnDef="fee">
+        <th mat-header-cell *matHeaderCellDef>Fee</th>
+        <td mat-cell *matCellDef="let element">{{ element.fee }}</td>
+      </ng-container>
+
+      <!-- Percent Column -->
+      <ng-container matColumnDef="percent">
+        <th mat-header-cell *matHeaderCellDef>Percent</th>
+        <td mat-cell *matCellDef="let element">{{ element.percent }}</td>
+      </ng-container>
+
+      <!-- Fixed Column -->
+      <ng-container matColumnDef="fixed">
+        <th mat-header-cell *matHeaderCellDef>Fixed</th>
+        <td mat-cell *matCellDef="let element">{{ element.fixed }}</td>
+      </ng-container>
+
+      <!-- Discount Column -->
+      <ng-container matColumnDef="discount">
+        <th mat-header-cell *matHeaderCellDef>Discount</th>
+        <td mat-cell *matCellDef="let element">{{ element.discount }}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      </ng-container>
+
+      <!-- Is_Online Column -->
+      <ng-container matColumnDef="is_online">
+        <th mat-header-cell *matHeaderCellDef>Is_Online?</th>
+        <td mat-cell *matCellDef="let element">{{ element.is_online ? 'YES' : 'NO' }}</td>
+      </ng-container>
+
+      <!-- Created_At Column -->
+      <ng-container matColumnDef="created_at">
+        <th mat-header-cell *matHeaderCellDef>Created At</th>
+        <td mat-cell *matCellDef="let element">{{ element.created_at }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="total_items" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="page-layout simple p-24">
+  <!--Spinner-->
+  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <!--Event Link-->
+  <div class="mb-12" fxLayout="row" fxLayout.xs="column"
+       fxLayoutAlign="space-between center">
+    <span class="mat-headline">User List</span>
+    <button mat-raised-button color="primary" [routerLink]="['/users/new']" *fuseAppCanAccess="['User', 'is_create']">Add</button>
+  </div>
+
+  <!--Search Pane-->
+  <div class="mat-card mb-12 p-12" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field fxFlex="100" class="ml-12" fxLayoutAlign="center">
+      <mat-icon matSuffix class="secondary-text">supervisor_account</mat-icon>
+      <input matInput placeholder="Search User Name" #search_name>
+    </mat-form-field>
+  </div>
+
+  <!--Date Table Panel-->
+  <div class="mat-card">
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="username" matSortDirection="asc" matSortDisableClear>
+      <!-- Username Column -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+        <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
+
+      <!-- Phone Column -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>Phone</th>
+        <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+      </ng-container>
+
+      <!-- Language Column -->
+      <ng-container matColumnDef="language">
+        <th mat-header-cell *matHeaderCellDef>Language</th>
+        <td mat-cell *matCellDef="let element">{{ element.language }}</td>
+      </ng-container>
+
+      <!-- Admin Role Column -->
+      <ng-container matColumnDef="admin_role">
+        <th mat-header-cell *matHeaderCellDef>Admin Role</th>
+        <td mat-cell *matCellDef="let element">{{ element.admin_role ? element.admin_role.name : '' }}</td>
+      </ng-container>
+
+      <!-- Is_Active Column -->
+      <ng-container matColumnDef="is_active">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Is_Active?</th>
+        <td mat-cell *matCellDef="let element">{{ element.is_active ? 'YES' : 'NO' }}</td>
+      </ng-container>
+
+      <!-- Last Login At Column -->
+      <ng-container matColumnDef="last_login_at">
+        <th mat-header-cell *matHeaderCellDef>Last Login</th>
+        <td mat-cell *matCellDef="let element">{{ element.last_login_at }}</td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element" class="td-buttons-wrap">
+          <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                  (click)="$event.stopPropagation();">
+            <mat-icon class="secondary-text">more_vert</mat-icon>
+          </button>
+
+          <mat-menu #moreMenu="matMenu">
+            <button mat-menu-item aria-label="edit" [routerLink]="['/users/edit', element.id]" *fuseAppCanAccess="['User', 'is_update']">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+
+            <button mat-menu-item aria-label="remove" (click)="deleteUser(element)" *fuseAppCanAccess="['User', 'is_delete']">
+              <mat-icon>delete</mat-icon>
+              <span>Remove</span>
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="total_items" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="m-0 w-100-p" fusePerfectScrollbar>
+
+  <form [formGroup]="roleForm" fxLayout="column" (submit)="save()">
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <mat-form-field appearance="outline" fxFlex="50">
+        <mat-label>Role Name</mat-label>
+        <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+        <input name="name" formControlName="name" matInput>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <mat-form-field appearance="outline" fxFlex="100">
+        <mat-label>Role Description</mat-label>
+        <textarea name="description" formControlName="description" matInput></textarea>
+      </mat-form-field>
+    </div>
+
+    <mat-divider class="mb-24"></mat-divider>
+
+    <h3 class="mat-headline mb-20">Add Page</h3>
+    <div formArrayName="role_pages" *ngFor="let page of pages.controls; let i = index;">
+      <div [formGroupName]="i" fxLayout="row" fxLayoutAlign="start center" class="page-wrapper">
+        <mat-form-field appearance="outline" fxFlex="50">
+          <mat-label>Page Name</mat-label>
+          <mat-select formControlName="admin_page_id">
+            <mat-option *ngFor="let aPage of displayedPages" [value]="aPage.id">
+              {{ aPage.name }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix class="secondary-text">pages</mat-icon>
+        </mat-form-field>
+
+        <section fxFlex="50" class="pl-32">
+          <mat-checkbox name="is_create" formControlName="is_create" class="pr-12">Is Create</mat-checkbox>
+          <mat-checkbox name="is_retrieve" formControlName="is_retrieve" class="pr-12">Is Retrieve</mat-checkbox>
+          <mat-checkbox name="is_update" formControlName="is_update" class="pr-12">Is Update</mat-checkbox>
+          <mat-checkbox name="is_delete" formControlName="is_delete">Is Delete</mat-checkbox>
+        </section>
+
+        <button mat-icon-button aria-label="Page delete" (click)="removePage(i)">
+          <mat-icon class="secondary-text">delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <button mat-raised-button color="primary" type="button" class="button" aria-label="More" (click)="addPage()">More Page</button>
+    </div>
+
+    <mat-divider class="my-24"></mat-divider>
+
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="p-4">
+      <button mat-raised-button [routerLink]="['/roles']">Cancel</button>
+      <button mat-raised-button color="accent" class="submit-button" aria-label="Save" >Save</button>
+    </div>
+
+  </form>
+
+</div>

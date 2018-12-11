@@ -1,0 +1,36 @@
+<div class="m-0 w-100-p" fusePerfectScrollbar>
+
+  <form [formGroup]="bankForm"  fxLayout="column" (submit)="save()">
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <mat-form-field appearance="outline" fxFlex="50" class="pr-12">
+        <mat-label>Name</mat-label>
+        <mat-icon matSuffix class="secondary-text">attach_money</mat-icon>
+        <input name="name" formControlName="name" matInput required>
+        <mat-error *ngIf="f.name.errors && f.name.errors.required">Name is required!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50" class="pl-12">
+        <mat-label>Currency</mat-label>
+        <mat-icon matSuffix class="secondary-text">money</mat-icon>
+        <mat-select name="currency_id" formControlName="currency_id" required>
+          <mat-option *ngFor="let currency of currencies" [value]="currency.id">
+            {{currency.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.currency_id.errors && f.currency_id.errors.required">Currency is required!</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start" class="pl-4 pb-4">
+      <mat-checkbox name="is_online" formControlName="is_online" class="pr-12">Is Online</mat-checkbox>
+      <mat-checkbox name="is_active" formControlName="is_active">Is Active</mat-checkbox>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="p-4">
+      <button mat-raised-button [routerLink]="['/banks']">Cancel</button>
+      <button mat-raised-button color="accent" class="submit-button" aria-label="Save" >Save</button>
+    </div>
+
+  </form>
+
+</div>

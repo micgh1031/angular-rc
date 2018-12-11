@@ -1,0 +1,102 @@
+<div class="page-layout simple p-24">
+  <!--Spinner-->
+  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <!--Event Link-->
+  <div class="mb-12" fxLayout="row" fxLayout.xs="column"
+       fxLayoutAlign="space-between center">
+    <span class="mat-headline">Transfers List</span>
+  </div>
+
+  <!--Search Pane-->
+  <div class="mat-card mb-12 p-12" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field fxFlex="100" class="ml-12" fxLayoutAlign="center">
+      <mat-icon matSuffix class="secondary-text">send</mat-icon>
+      <input matInput placeholder="Search Name" #search_name>
+    </mat-form-field>
+  </div>
+
+  <!--Date Table Panel-->
+  <div class="mat-card">
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="created_at" matSortDirection="desc" matSortDisableClear>
+      <!-- Sender Column -->
+      <ng-container matColumnDef="sender">
+        <th mat-header-cell *matHeaderCellDef>Sender</th>
+        <td mat-cell *matCellDef="let element">{{element.sender ? element.sender.name : '---'}}</td>
+      </ng-container>
+
+      <!-- Receiver Column -->
+      <ng-container matColumnDef="receiver">
+        <th mat-header-cell *matHeaderCellDef>Receiver</th>
+        <td mat-cell *matCellDef="let element">{{element.receiver ? element.receiver.name : '---'}}</td>
+      </ng-container>
+
+      <!-- Currency Column -->
+      <ng-container matColumnDef="currency">
+        <th mat-header-cell *matHeaderCellDef>Currency</th>
+        <td mat-cell *matCellDef="let element">{{element.currency ? element.currency.name : '---'}}</td>
+      </ng-container>
+
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+        <td mat-cell *matCellDef="let element">{{element.amount ? element.amount : '---'}}</td>
+      </ng-container>
+
+      <!-- Fee Column -->
+      <ng-container matColumnDef="fee">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fee</th>
+        <td mat-cell *matCellDef="let element">{{element.fee ? element.fee : '---'}}</td>
+      </ng-container>
+
+      <!-- Percent Column -->
+      <ng-container matColumnDef="percent">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Percent</th>
+        <td mat-cell *matCellDef="let element">{{element.percent ? element.percent : '---'}}</td>
+      </ng-container>
+
+      <!-- Fixed Column -->
+      <ng-container matColumnDef="fixed">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fixed</th>
+        <td mat-cell *matCellDef="let element">{{element.fixed ? element.fixed : '---'}}</td>
+      </ng-container>
+
+      <!-- Discount Column -->
+      <ng-container matColumnDef="discount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Discount</th>
+        <td mat-cell *matCellDef="let element">{{element.discount ? element.discount : '---'}}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let element">{{element.status ? element.status : '---'}}</td>
+      </ng-container>
+
+      <!-- Note Column -->
+      <ng-container matColumnDef="note">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Note</th>
+        <td mat-cell *matCellDef="let element">{{element.note ? element.note : '---'}}</td>
+      </ng-container>
+
+      <!-- Processed At Column -->
+      <ng-container matColumnDef="processed_at">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Processed_at</th>
+        <td mat-cell *matCellDef="let element">{{element.processed_at ? element.processed_at : '---'}}</td>
+      </ng-container>
+
+      <!-- Created At Column -->
+      <ng-container matColumnDef="created_at">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created_at</th>
+        <td mat-cell *matCellDef="let element">{{element.created_at ? element.created_at : '---'}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="total_items" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

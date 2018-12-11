@@ -1,0 +1,83 @@
+<div class="m-0 w-100-p" fusePerfectScrollbar>
+
+  <form [formGroup]="userForm"  fxLayout="column" (submit)="save()">
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <mat-form-field appearance="outline" fxFlex="50" class="pr-12">
+        <mat-label>Username</mat-label>
+        <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+        <input name="username" formControlName="username" matInput>
+        <mat-error *ngIf="f.username.errors && f.username.errors.required">Username is required!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50" class="pl-12">
+        <mat-label>Email</mat-label>
+        <mat-icon matSuffix class="secondary-text">email</mat-icon>
+        <input name="email" formControlName="email" matInput>
+        <mat-error *ngIf="f.email.errors && f.email.errors.required">Email is required!</mat-error>
+        <mat-error *ngIf="f.email.errors && f.email.errors.email">Email must be a valid email address!</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <mat-form-field appearance="outline" fxFlex="50" class="pr-12">
+        <mat-label>Phone</mat-label>
+        <mat-icon matSuffix class="secondary-text">local_phone</mat-icon>
+        <input name="phone" formControlName="phone" matInput>
+        <mat-error *ngIf="f.phone.errors && f.phone.errors.required">Phone is required!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50" class="pl-12">
+        <mat-label>Language</mat-label>
+        <mat-icon matSuffix class="secondary-text">language</mat-icon>
+        <input name="language" formControlName="language" matInput>
+        <mat-error *ngIf="f.language.errors && f.language.errors.required">Language is required!</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <mat-form-field appearance="outline" fxFlex="50" class="pr-12 custom-password">
+        <mat-label>{{ editStatus ? 'New' : '' }} Password</mat-label>
+        <mat-icon matSuffix (click)="pwHide = !pwHide">{{ pwHide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        <input name="password" formControlName="password" [type]="pwHide ? 'password' : 'text'" [placeholder]="editStatus ? 'Leave blank to avoid changing' : ''" matInput>
+        <mat-error *ngIf="f.password.errors && f.password.errors.required">Password is required!</mat-error>
+        <mat-error *ngIf="f.password.errors && f.password.errors.minlength">Password must be at least 6 characters!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50" class="pl-12 custom-password">
+        <mat-label>Confirm {{ editStatus ? 'New' : '' }} Password</mat-label>
+        <mat-icon matSuffix (click)="pwHide = !pwHide">{{ pwHide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        <input name="password_confirmation" formControlName="password_confirmation" [type]="pwHide ? 'password' : 'text'" [placeholder]="editStatus ? 'Leave blank to avoid changing' : ''" matInput>
+        <mat-error *ngIf="f.password_confirmation.errors && f.password_confirmation.errors.required">Confirm Password is required!</mat-error>
+        <mat-error *ngIf="f.password_confirmation.errors && f.password_confirmation.errors.mustMatch">Passwords must match!</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <mat-form-field appearance="outline" fxFlex="50" class="pr-12">
+        <mat-label>Admin Role</mat-label>
+        <mat-select name="admin_role_id" formControlName="admin_role_id">
+          <mat-option *ngFor="let role of roles" [value]="role.id">
+            {{ role.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.admin_role_id.errors && f.admin_role_id.errors.required">Admin Role is required!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50" class="pl-12">
+        <mat-label>Is Active?</mat-label>
+        <mat-select name="is_active" formControlName="is_active">
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="p-4">
+      <button mat-raised-button [routerLink]="['/users']">Cancel</button>
+      <button mat-raised-button color="accent" class="submit-button" aria-label="Save" >Save</button>
+    </div>
+
+  </form>
+
+</div>

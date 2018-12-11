@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+// Import Fuse core library
+@import "@fuse/scss/core";
+
+// Import app.theme.scss
+@import "src/assets/css/app.theme";
+
+@import "~ngx-toastr/toastr.css";

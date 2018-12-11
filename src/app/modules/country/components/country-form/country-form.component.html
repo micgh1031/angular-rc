@@ -1,0 +1,58 @@
+<div class="m-0 w-100-p" fusePerfectScrollbar>
+
+  <form [formGroup]="countryForm"  fxLayout="column" (submit)="save()">
+
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <mat-form-field appearance="outline" fxFlex="50" class="pr-12">
+        <mat-label>Name</mat-label>
+        <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+        <input name="name" formControlName="name" matInput required>
+        <mat-error *ngIf="f.name.errors && f.name.errors.required">Name is required!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50" class="pl-12">
+        <mat-label>Prefix</mat-label>
+        <mat-icon matSuffix class="secondary-text">location_city</mat-icon>
+        <input name="prefix" formControlName="prefix" matInput required>
+        <mat-error *ngIf="f.prefix.errors && f.prefix.errors.required">Prefix is required!</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+      <mat-form-field appearance="outline" fxFlex="50" class="pr-12">
+        <mat-label>Code2</mat-label>
+        <mat-icon matSuffix class="secondary-text">markunread_mailbox</mat-icon>
+        <input name="code2" formControlName="code2" matInput required>
+        <mat-error *ngIf="f.code2.errors && f.code2.errors.required">Code2 is required!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50" class="pl-12">
+        <mat-label>Code3</mat-label>
+        <mat-icon matSuffix class="secondary-text">markunread_mailbox</mat-icon>
+        <input name="code3" formControlName="code3" matInput required>
+        <mat-error *ngIf="f.code3.errors && f.code3.errors.required">Code3 is required!</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="mb-12">
+      <div appearance="outline" fxFlex="50" class="pl-12">
+        <mat-label>Country Flag</mat-label>
+        <input name="img_flag" id="img_flag" type="file" accept="image/*" (change)="processFile($event)" #image_input required>
+        <mat-error *ngIf="submitted && f.img_flag.errors && f.img_flag.errors.required">Image Flag is required!</mat-error>
+      </div>
+
+      <img [src]="image_url" name="image-preview" class="image-preview" *ngIf="image_url">
+
+      <!--<mat-form-field appearance="outline" fxFlex>-->
+        <!--<mat-label>Image Flag</mat-label>-->
+        <!--<mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>-->
+        <!--<input name="img_flag" formControlName="img_flag" matInput>-->
+      <!--</mat-form-field>-->
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="p-4">
+      <button mat-raised-button [routerLink]="['/countries']">Cancel</button>
+      <button mat-raised-button color="accent" class="submit-button" aria-label="Save" >Save</button>
+    </div>
+
+  </form>
+
+</div>

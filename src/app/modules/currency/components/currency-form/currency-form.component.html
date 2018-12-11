@@ -1,0 +1,31 @@
+<div class="m-0 w-100-p" fusePerfectScrollbar>
+
+  <form [formGroup]="currencyForm"  fxLayout="column" (submit)="save()">
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <mat-form-field appearance="outline" fxFlex="50" class="pr-12">
+        <mat-label>Name</mat-label>
+        <mat-icon matSuffix class="secondary-text">money</mat-icon>
+        <input name="name" formControlName="name" matInput required>
+        <mat-error *ngIf="f.name.errors && f.name.errors.required">Name is required!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" fxFlex="50" class="pl-12">
+        <mat-label>Symbol</mat-label>
+        <mat-icon matSuffix class="secondary-text">attach_money</mat-icon>
+        <input formControlName="symbol" matInput>
+        <mat-error *ngIf="f.symbol.errors && f.symbol.errors.required">Symbol is required!</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start" class="pl-4 pb-4">
+      <mat-checkbox name="is_active" formControlName="is_active">Is Active</mat-checkbox>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="p-4">
+      <button mat-raised-button [routerLink]="['/currencies']">Cancel</button>
+      <button mat-raised-button color="accent" class="submit-button" aria-label="Save" >Save</button>
+    </div>
+
+  </form>
+
+</div>

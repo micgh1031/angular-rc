@@ -1,0 +1,72 @@
+<div class="page-layout simple p-24">
+  <!--Spinner-->
+  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <!--Event Link-->
+  <div class="mb-12" fxLayout="row" fxLayout.xs="column"
+       fxLayoutAlign="space-between center">
+    <span class="mat-headline">Transactions List</span>
+  </div>
+
+  <!--Search Pane-->
+  <div class="mat-card mb-12 p-12" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field fxFlex="100" class="ml-12" fxLayoutAlign="center">
+      <mat-icon matSuffix class="secondary-text">laptop</mat-icon>
+      <input matInput placeholder="Search Name" #search_name>
+    </mat-form-field>
+  </div>
+
+  <!--Date Table Panel-->
+  <div class="mat-card">
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="created_at" matSortDirection="desc" matSortDisableClear>
+      <!-- User Column -->
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef>User</th>
+        <td mat-cell *matCellDef="let element">{{element.user ? element.user.name : '---'}}</td>
+      </ng-container>
+
+      <!-- Merchant Column -->
+      <ng-container matColumnDef="merchant">
+        <th mat-header-cell *matHeaderCellDef>Merchant</th>
+        <td mat-cell *matCellDef="let element">{{element.merchant ? element.merchant.name : '---'}}</td>
+      </ng-container>
+
+      <!-- Type Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+        <td mat-cell *matCellDef="let element">{{element.type ? type_group[element.type] : '---'}}</td>
+      </ng-container>
+
+      <!-- Relation Column -->
+      <ng-container matColumnDef="relation_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Relation</th>
+        <td mat-cell *matCellDef="let element">{{element.relation_id}}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let element">{{element.status}}</td>
+      </ng-container>
+
+      <!-- Processed At Column -->
+      <ng-container matColumnDef="processed_at">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Processed At</th>
+        <td mat-cell *matCellDef="let element">{{element.processed_at ? element.processed_at : '---'}}</td>
+      </ng-container>
+
+      <!-- Created At Column -->
+      <ng-container matColumnDef="created_at">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created At</th>
+        <td mat-cell *matCellDef="let element">{{element.created_at ? element.created_at : '---'}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="total_items" [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
