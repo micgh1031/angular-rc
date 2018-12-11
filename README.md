@@ -18,13 +18,16 @@ This MVP project was developed using Angular + Fuse Material Design Admin Templa
 
 1) Install Node.js v10.x and Npm v6.x (reference: How to install the latest versions of NodeJS and NPM[https://askubuntu.com/questions/594656/how-to-install-the-latest-versions-of-nodejs-and-npm])
 
-    `$ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -`
-
-    `$ sudo apt-get install -y nodejs`
+```
+$ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+$ sudo apt-get install -y nodejs
+```
 
 2) Install angular cli globally using NPM
 
-    `$ npm install -g @angular/cli@7.0.3`
+```
+$ npm install -g @angular/cli@7.0.3
+```
 
 ## Run the application locally
 
